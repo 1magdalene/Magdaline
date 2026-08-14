@@ -4,8 +4,8 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Magdalene — Creative Portfolio</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232F4A3C'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23F5F1E8'/%3E%3Ccircle cx='48' cy='16' r='5' fill='%23F5F1E8'/%3E%3Ccircle cx='16' cy='48' r='5' fill='%23F5F1E8'/%3E%3Ccircle cx='48' cy='48' r='5' fill='%23F5F1E8'/%3E%3Cpolygon points='26,20 26,44 46,32' fill='%23F5F1E8'/%3E%3C/svg%3E">
+<title>Hire me!</title>
+<link rel="icon" type="image/png" href="images.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -164,7 +164,7 @@
   .hero-frame-count small{
     -webkit-text-stroke:0; color:var(--accent-2);
     font-family:'IBM Plex Mono', monospace;
-    font-size:clamp(0.55rem, 1.6vw, 0.85rem);
+    font-size:clamp(1.5rem, 1.6vw, 1.5rem);
     letter-spacing:0.08em;
     white-space:normal;
     text-align:center;
@@ -225,7 +225,7 @@
 
   /* ---------- About ---------- */
   .about-grid{
-    display:grid; grid-template-columns:260px 1fr; gap:52px; align-items:start;
+    display:grid; grid-template-columns:1fr; gap:52px; align-items:start;
   }
   .portrait{
     aspect-ratio:4/5; border:1px solid var(--ink); position:relative;
@@ -424,7 +424,8 @@
 
   .reveal{opacity:0; transform:translateY(16px); transition:opacity 0.5s ease, transform 0.5s ease;}
   .reveal.in{opacity:1; transform:none;}
-
+  .claude{opacity:0.4; transition:opacity 0.3s ease; }
+  .strikethrough{opacity:0.5;transition:opacity 0.3s ease; }
   /* ============================================================
      RESPONSIVE — tablet & mobile refinements
      ============================================================ */
@@ -469,7 +470,7 @@
 
 <header>
   <div class="nav-row">
-    <a href="#top" class="logo js-scroll" data-target="top"><span class="logo-mark"></span>Magdalene</a>
+    <a href="#top" class="logo js-scroll" data-target="top">Wanjiku Magdaline Wangari</a>
     <input type="checkbox" id="nav-toggle">
     <label for="nav-toggle" class="nav-btn" aria-label="Toggle menu"><span></span></label>
     <nav>
@@ -491,7 +492,7 @@
   <div class="wrap">
     <div>
       <p class="mono eyebrow">Video Editing · Poster Design · Visualization</p>
-      <h1 class="display">Trying to give ideas a space to<br>bloom</h1>
+      <h1 class="display">Trying to give ideas a space to bloom</h1>
       <p class="hero-sub">A small archive of the work I make outside the classroom, some simple edits, posters, and visuals.</p>
       <div class="hero-actions">
         <a href="#reels" class="btn btn-solid js-scroll" data-target="reels">Watch the video samples</a>
@@ -502,16 +503,15 @@
         <span class="label mono">Now playing portfolio reel</span>
       </div>
     </div>
-    <div class="hero-frame-count" aria-hidden="true">30<small>works at 30 frames/sec</small></div>
+    <div class="hero-frame-count" aria-hidden="true"><span id="frame-counter">30</span><small>works at 30 frames/sec</small></div>
   </div>
 </section>
 
 <section id="about" class="reveal">
   <div class="wrap about-grid">
-    <div class="portrait"><img src="SYS.jpeg" alt="Portrait" style="width:100%;height:100%;object-fit:cover;object-position:center;"></div>
     <div>
       <p class="mono section-head-num" style="font-size:0.7rem;color:var(--accent-2);">01 — About</p>
-      <h2 style="font-size:2rem;font-style:italic;margin:10px 0 16px;">Hi, I'm Magdalene.</h2>
+      <h2 style="font-size:2rem;font-style:italic;margin:10px 0 16px;">Hi, I'm Magdaline Wangari.</h2>
       <p style="color:var(--ink-soft); max-width:56ch;"><!-- EDIT ME -->
         I'm a BBIT student who likes exploring their creative side.
         You will see my thought process through the things I make and the vision I have when creating something.
@@ -544,12 +544,12 @@
       <div class="frame" tabindex="0" role="button" aria-label="Open Poster 02"
            onclick="openLightbox('poster','','DYK','','DYK.png')">
         <div class="frame-visual"><img src="DYK.png" alt="DYK poster" style="width:100%;height:100%;object-fit:cover;object-position:center;"></div>
-        <div class="frame-cap mono"><span class="t">Poster 02</span><span class="n">DYK</span></div>
+        <div class="frame-cap mono"><span class="n">DYK</span></div>
       </div>
       <div class="frame" tabindex="0" role="button" aria-label="Open Poster 03"
            onclick="openLightbox('poster','','funFact','','funFact.png')">
         <div class="frame-visual"><img src="funFact.png" alt="funFact poster" style="width:100%;height:100%;object-fit:cover;object-position:center;"></div>
-        <div class="frame-cap mono"><span class="t">Poster 03</span><span class="n">funFact</span></div>
+        <div class="frame-cap mono"><span class="n">funFact</span></div>
       </div>
     </div>
   </div>
@@ -583,7 +583,7 @@
           <div class="play-btn" style="position:relative;"></div>
         </div>
         <div class="sprockets"></div>
-        <div class="reel-meta mono"><span>JAF Edit — 02</span><span class="n">124</span></div>
+        <div class="reel-meta mono"><span>JAF Edit — 02</span><span class="n">Myth buster</span></div>
       </div>
       <div class="reel-card" tabindex="0" role="button" aria-label="Play personal edit"
            onclick="openLightbox('video','','Personal Edit — NewDay', '', 'NewDay.mp4')">
@@ -593,7 +593,7 @@
           <div class="play-btn" style="position:relative;"></div>
         </div>
         <div class="sprockets"></div>
-        <div class="reel-meta mono"><span>Personal Edit</span><span class="n">NewDay</span></div>
+        <div class="reel-meta mono"><span>A Personal Edit</span><span class="n">NewDay</span></div>
       </div>
     </div>
   </div>
@@ -617,8 +617,8 @@
       <div class="drawing-text">
         <p class="mono" style="font-size:0.68rem;color:var(--accent-2);">Audio reactive visuals — TouchDesigner</p>
         <h3 style="font-size:1.5rem;font-style:italic;">Sound, made visible.</h3>
-        <p style="color:var(--ink-soft); font-size:0.9rem;"><!-- EDIT ME -->Generative visuals built to respond to sound in real time — a running exploration in TouchDesigner. Click the preview to watch it in motion.</p>
-        <span class="link-line mono">Watch the preview →</span>
+        <p style="color:var(--ink-soft); font-size:0.9rem;">Generative visuals built to respond to sound in real time, a running exploration in TouchDesigner. Click the preview to watch it in motion.</p>
+        <span class="link-line mono">Watch the preview </span>
       </div>
     </div>
   </div>
@@ -637,7 +637,7 @@
       <div class="cert-visual"><img src="cert.jpeg" alt="Video editing certificate" style="width:100%;height:100%;object-fit:cover;object-position:center;"></div>
       <div class="cert-text">
         <h3 style="font-size:1.2rem;">Video Editing Certificate</h3>
-        <p class="t mono"><!-- EDIT ME -->Issuing body · Year — click to view</p>
+        <p class="t mono">International Youth Fellowship · 2024 <br> click to view</p>
       </div>
     </div>
   </div>
@@ -648,20 +648,20 @@
     <div>
       <p class="mono num" style="color:var(--accent-2);font-size:0.7rem;">06 — Contact</p>
       <h2 style="font-size:2.2rem;font-style:italic;margin:10px 0 16px;">Let's make something.</h2>
-      <p style="color:var(--ink-soft); max-width:40ch;">Open to freelance edits, poster commissions, and collaborations. The fastest way to reach me is email.</p>
+      <p style="color:var(--ink-soft); max-width:40ch;">Open to freelance edits, poster commissions, and collaborations. </pre>The fastest way to reach me is through email.</p>
     </div>
     <ul class="contact-list mono">
-      <li><span>Email</span><a href="mailto:youremail@example.com"><!-- EDIT ME -->youremail@example.com</a></li>
-      <li><span>Instagram</span><a href="#"><!-- EDIT ME -->@yourhandle</a></li>
-      <li><span>Behance / Drive</span><a href="#"><!-- EDIT ME -->view work</a></li>
-    </ul>
+      <li><span>Email</span><a href="mailto:magdalene.w.wanjiku@gmail.com">magdalene.w.wanjiku@gmail.com</a></li>
+      <li><span>Linkedin</span><a href="https://www.linkedin.com/in/wangari-magdaline/" target="_blank" rel="noopener noreferrer">Magdaline Wangari W</a></li>
+          <li><span>Phone</span><a href="tel:+254707253196">+254 707 253 196</a></li>
+        </ul>
   </div>
 </section>
 
 <footer>
   <div class="wrap footer-row">
     <p class="mono">© <span id="year"></span>, All rights reserved.</p>
-    <p class="mono footer-signature"><span class="bounce-emoji" aria-hidden="true">🪨</span> Made by the one and only me</p>
+    <p class="mono footer-signature"><span class="bounce-emoji" aria-hidden="true">🪨</span> Made by yours truly<span class="claude"><s>and claude</s></span></p>
   </div>
 </footer>
 
@@ -734,6 +734,30 @@
   }
   function onKey(e){ if(e.key === 'Escape'){ closeLightbox(); } }
   lightbox.addEventListener('click', (e) => { if(e.target === lightbox){ closeLightbox(); } });
+
+  // Frame counter animation
+  const frameCounter = document.getElementById('frame-counter');
+  let currentFrame = 0;
+  const targetFrame = 30;
+  const animationDuration = 1500; // milliseconds
+  const startTime = Date.now();
+  
+  function animateFrameCounter(){
+    const elapsed = Date.now() - startTime;
+    const progress = Math.min(elapsed / animationDuration, 1);
+    currentFrame = Math.floor(progress * targetFrame);
+    frameCounter.textContent = currentFrame;
+    
+    if(progress < 1){
+      requestAnimationFrame(animateFrameCounter);
+    }
+  }
+  
+  if(!reduceMotion){
+    animateFrameCounter();
+  } else {
+    frameCounter.textContent = targetFrame;
+  }
 
   // Reveal-on-scroll
   if(!reduceMotion){
