@@ -14,8 +14,8 @@
                  <img> (thumbnail) inside .frame-visual, and set the card's
                  data-video="your-video-link-or-embed-url" attribute if you
                  want the play button to open a real video.
-  3. DRAWINGS  — search for DRAWINGS_DRIVE_LINK below in the <script> and
-                 replace the placeholder URL with your real Google Drive link.
+  3. AUDIO REACTIVE VISUALS — search for "ARV". Same idea as the reels: the
+                 preview card plays ARV.mp4 inline and opens it full-size on click.
   4. CERTIFICATE — search for "CERT PLACEHOLDER" and swap in your certificate
                  image the same way as the posters.
   5. ABOUT / CONTACT — search for "EDIT ME" to find the placeholder copy.
@@ -57,6 +57,7 @@
     font-size:16px;
     line-height:1.55;
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
 
   h1,h2,h3{
@@ -352,7 +353,7 @@
   }
   @media (max-width:760px){ .drawing-card{grid-template-columns:1fr;} }
   .drawing-visual{
-    aspect-ratio:1/1;
+    aspect-ratio:1/1; position:relative; overflow:hidden;
     background:repeating-linear-gradient(70deg, rgba(32,29,24,0.10) 0 3px, transparent 3px 9px), var(--bg-card);
     border-right:1px solid var(--line);
     display:flex; align-items:center; justify-content:center;
@@ -421,10 +422,18 @@
   .lightbox-card{
     background:var(--bg); max-width:640px; width:100%; padding:26px;
     border:1px solid var(--ink); position:relative;
+    max-height:92vh; overflow-y:auto;
   }
   .lightbox-visual{
-    aspect-ratio:4/3; margin-bottom:18px; border:1px solid var(--line);
+    margin-bottom:18px; border:1px solid var(--line);
     display:flex; align-items:center; justify-content:center;
+    max-height:76vh; overflow:hidden;
+  }
+  .lightbox-visual img, .lightbox-visual video{
+    width:100%; height:auto; max-height:76vh; object-fit:contain; display:block;
+  }
+  .lightbox-visual:empty, .lightbox-visual:has(.plus){
+    aspect-ratio:4/3; min-height:160px;
   }
   .lightbox-close{
     position:absolute; top:-14px; right:-14px; width:34px; height:34px; border-radius:50%;
@@ -435,6 +444,45 @@
 
   .reveal{opacity:0; transform:translateY(16px); transition:opacity 0.5s ease, transform 0.5s ease;}
   .reveal.in{opacity:1; transform:none;}
+
+  /* ============================================================
+     RESPONSIVE — tablet & mobile refinements
+     ============================================================ */
+  @media (max-width:760px){
+    .about-grid{grid-template-columns:1fr; gap:28px;}
+    .portrait{max-width:220px; margin:0 auto;}
+  }
+
+  @media (max-width:700px){
+    .nav-row{padding:14px 20px;}
+    .wrap{padding:0 20px;}
+    .hero{padding:64px 0 44px;}
+    h1.display{font-size:clamp(2.1rem, 8vw, 3rem); max-width:100%;}
+    .hero-sub{font-size:0.95rem; max-width:100%;}
+    .hero-actions{gap:10px;}
+    .btn{padding:12px 18px; font-size:0.7rem; flex:1 1 auto; text-align:center;}
+    .timecode{margin-top:38px; gap:10px;}
+    .timecode .readout{font-size:1.25rem;}
+    section{padding:52px 0;}
+    .section-head{margin-bottom:28px;}
+    .section-head h2{font-size:1.5rem;}
+    .section-note{max-width:100%;}
+    .frame-grid, .reel-grid{gap:18px;}
+    .frame{padding:10px 10px 14px;}
+    .drawing-text{padding:22px;}
+    .cert-card{padding:18px;}
+    .cert-visual{width:100%; max-width:260px; margin:0 auto;}
+    .lightbox{padding:14px;}
+    .lightbox-card{padding:18px;}
+    .lightbox-close{top:-12px; right:-6px;}
+  }
+
+  @media (max-width:420px){
+    .hero-frame-count small{max-width:11ch;}
+    nav ul{padding:6px 20px 18px;}
+    .about-facts li{flex-direction:column; gap:2px; align-items:flex-start;}
+    .contact-list li{flex-direction:column; align-items:flex-start; gap:4px;}
+  }
 </style>
 </head>
 <body>
@@ -449,7 +497,7 @@
         <li><a href="#about" class="js-scroll" data-target="about">About</a></li>
         <li><a href="#posters" class="js-scroll" data-target="posters">Posters</a></li>
         <li><a href="#reels" class="js-scroll" data-target="reels">Reels</a></li>
-        <li><a href="#drawings" class="js-scroll" data-target="drawings">Drawings</a></li>
+        <li><a href="#arv" class="js-scroll" data-target="arv">ARV</a></li>
         <li><a href="#cert" class="js-scroll" data-target="cert">Certification</a></li>
         <li><a href="#contact" class="js-scroll" data-target="contact">Contact</a></li>
       </ul>
@@ -480,7 +528,7 @@
 
 <section id="about" class="reveal">
   <div class="wrap about-grid">
-    <div class="portrait"><span>Add a portrait or workspace photo here</span></div>
+    <div class="portrait"><img src="SYS.jpeg" alt="Portrait" style="width:100%;height:100%;object-fit:cover;object-position:center;"></div>
     <div>
       <p class="mono section-head-num" style="font-size:0.7rem;color:var(--accent-2);">01 — About</p>
       <h2 style="font-size:2rem;font-style:italic;margin:10px 0 16px;">Hi, I'm Magdalene.</h2>
@@ -512,17 +560,17 @@
     <div class="frame-grid">
       <div class="frame" tabindex="0" role="button" aria-label="Open Poster 01"
            onclick="openLightbox('poster','','1stWeb','','1stWeb.png')">
-        <div class="frame-visual p-poster-1"><img src="1stWeb.png" alt="1stWeb poster" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div class="frame-visual"><img src="1stWeb.png" alt="1stWeb poster" style="width:100%;height:100%;object-fit:cover;object-position:center;"></div>
         <div class="frame-cap mono"><span class="t">Poster 01</span><span class="n">1stWeb</span></div>
       </div>
       <div class="frame" tabindex="0" role="button" aria-label="Open Poster 02"
            onclick="openLightbox('poster','','DYK','','DYK.png')">
-        <div class="frame-visual p-poster-2"><img src="DYK.png" alt="DYK poster" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div class="frame-visual"><img src="DYK.png" alt="DYK poster" style="width:100%;height:100%;object-fit:cover;object-position:center;"></div>
         <div class="frame-cap mono"><span class="t">Poster 02</span><span class="n">DYK</span></div>
       </div>
       <div class="frame" tabindex="0" role="button" aria-label="Open Poster 03"
            onclick="openLightbox('poster','','funFact','','funFact.png')">
-        <div class="frame-visual p-poster-3"><img src="funFact.png" alt="funFact poster" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div class="frame-visual"><img src="funFact.png" alt="funFact poster" style="width:100%;height:100%;object-fit:cover;object-position:center;"></div>
         <div class="frame-cap mono"><span class="t">Poster 03</span><span class="n">funFact</span></div>
       </div>
     </div>
@@ -540,24 +588,30 @@
     </div>
     <div class="reel-grid">
       <div class="reel-card" tabindex="0" role="button" aria-label="Play JAF edit 01"
-           onclick="openLightbox('video','','JAF Edit 01', 'Add your video link or embed here — set this card\'s content in the HTML to point at your file, YouTube link, or Drive preview link.')">
+           onclick="openLightbox('video','','JAF Edit 01', '', 'JAF.mp4')">
         <div class="sprockets"></div>
-        <div class="reel-body"><div class="play-btn"></div></div>
+        <div class="reel-body">
+          <video src="JAF.mp4" preload="metadata" muted playsinline style="width:100%;height:100%;object-fit:cover;object-position:center;position:absolute;inset:0;"></video>
+          <div class="play-btn" style="position:relative;"></div>
+        </div>
         <div class="sprockets"></div>
-        <div class="reel-meta mono"><span>JAF Edit — 01</span><span class="n">Add video</span></div>
+        <div class="reel-meta mono"><span>JAF Edit — 01</span><span class="n">JAF</span></div>
       </div>
       <div class="reel-card" tabindex="0" role="button" aria-label="Play JAF edit 02"
-           onclick="openLightbox('video','','JAF Edit 02', 'Add your second JAF video here the same way.')">
+           onclick="openLightbox('video','','JAF Edit 02', '', '124.mp4')">
         <div class="sprockets"></div>
-        <div class="reel-body"><div class="play-btn"></div></div>
+        <div class="reel-body">
+          <video src="124.mp4" preload="metadata" muted playsinline style="width:100%;height:100%;object-fit:cover;object-position:center;position:absolute;inset:0;"></video>
+          <div class="play-btn" style="position:relative;"></div>
+        </div>
         <div class="sprockets"></div>
-        <div class="reel-meta mono"><span>JAF Edit — 02</span><span class="n">Add video</span></div>
+        <div class="reel-meta mono"><span>JAF Edit — 02</span><span class="n">124</span></div>
       </div>
       <div class="reel-card" tabindex="0" role="button" aria-label="Play personal edit"
            onclick="openLightbox('video','','Personal Edit — NewDay', '', 'NewDay.mp4')">
         <div class="sprockets"></div>
         <div class="reel-body">
-          <video src="NewDay.mp4" preload="metadata" muted playsinline style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></video>
+          <video src="NewDay.mp4" preload="metadata" muted playsinline style="width:100%;height:100%;object-fit:cover;object-position:center;position:absolute;inset:0;"></video>
           <div class="play-btn" style="position:relative;"></div>
         </div>
         <div class="sprockets"></div>
@@ -567,22 +621,26 @@
   </div>
 </section>
 
-<section id="drawings" class="alt reveal">
+<section id="arv" class="alt reveal">
   <div class="wrap">
     <div class="section-head">
       <div>
-        <p class="mono num">04 — Sketchbook</p>
-        <h2>Drawings</h2>
+        <p class="mono num">04 — Generative work</p>
+        <h2>Audio Reactive Visuals</h2>
       </div>
-      <p class="section-note">One preview card, links out to the full collection.</p>
+      <p class="section-note">Real-time visuals built in TouchDesigner, driven by sound. Click to preview.</p>
     </div>
-    <div class="drawing-card" tabindex="0" role="button" aria-label="Open drawings on Drive" onclick="openDrawings()">
-      <div class="drawing-visual"><span class="plus mono">+ Add preview image</span></div>
+    <div class="drawing-card" tabindex="0" role="button" aria-label="Play audio reactive visuals preview"
+         onclick="openLightbox('video','','Audio Reactive Visuals', '', 'ARV.mp4')">
+      <div class="drawing-visual">
+        <video src="ARV.mp4" preload="metadata" muted playsinline style="width:100%;height:100%;object-fit:cover;object-position:center;"></video>
+        <div class="play-btn" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-color:var(--ink);"></div>
+      </div>
       <div class="drawing-text">
-        <p class="mono" style="font-size:0.68rem;color:var(--accent-2);">Sketchbook — selected drawings</p>
-        <h3 style="font-size:1.5rem;font-style:italic;">A running collection.</h3>
-        <p style="color:var(--ink-soft); font-size:0.9rem;"><!-- EDIT ME -->A rotating set of drawings, kept as a folder rather than a wall — click through for the full collection.</p>
-        <span class="link-line mono">Open full collection on Drive →</span>
+        <p class="mono" style="font-size:0.68rem;color:var(--accent-2);">Audio reactive visuals — TouchDesigner</p>
+        <h3 style="font-size:1.5rem;font-style:italic;">Sound, made visible.</h3>
+        <p style="color:var(--ink-soft); font-size:0.9rem;"><!-- EDIT ME -->Generative visuals built to respond to sound in real time — a running exploration in TouchDesigner. Click the preview to watch it in motion.</p>
+        <span class="link-line mono">Watch the preview →</span>
       </div>
     </div>
   </div>
@@ -598,7 +656,7 @@
     </div>
     <div class="cert-card" tabindex="0" role="button" aria-label="Open certificate"
          onclick="openLightbox('cert','','Video Editing Certificate','', 'cert.jpeg')">
-      <div class="cert-visual"><img src="cert.jpeg" alt="Video editing certificate" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="cert-visual"><img src="cert.jpeg" alt="Video editing certificate" style="width:100%;height:100%;object-fit:cover;object-position:center;"></div>
       <div class="cert-text">
         <h3 style="font-size:1.2rem;">Video Editing Certificate</h3>
         <p class="t mono"><!-- EDIT ME -->Issuing body · Year — click to view</p>
@@ -639,9 +697,6 @@
 </div>
 
 <script>
-  // ---- EDIT ME: your Google Drive folder link for drawings ----
-  const DRAWINGS_DRIVE_LINK = "https://drive.google.com/drive/folders/REPLACE_WITH_YOUR_FOLDER_ID";
-
   document.getElementById('year').textContent = new Date().getFullYear();
 
   // Timecode ticker (signature hero element)
@@ -674,16 +729,12 @@
       video.src = src;
       video.controls = true;
       video.autoplay = true;
-      video.style.width = '100%';
-      video.style.height = '100%';
+      video.playsInline = true;
       lbVisual.appendChild(video);
     } else if(src){
       const img = document.createElement('img');
       img.src = src;
       img.alt = title;
-      img.style.width = '100%';
-      img.style.height = '100%';
-      img.style.objectFit = 'contain';
       lbVisual.appendChild(img);
     } else {
       if(patternClass){ lbVisual.classList.add(patternClass); }
@@ -705,14 +756,6 @@
   }
   function onKey(e){ if(e.key === 'Escape'){ closeLightbox(); } }
   lightbox.addEventListener('click', (e) => { if(e.target === lightbox){ closeLightbox(); } });
-
-  function openDrawings(){
-    if(DRAWINGS_DRIVE_LINK.includes('REPLACE_WITH')){
-      openLightbox('poster','','Add your Drive link', 'Set DRAWINGS_DRIVE_LINK near the top of the <script> tag to your real Google Drive folder link, then this card will open it directly in a new tab.');
-      return;
-    }
-    window.open(DRAWINGS_DRIVE_LINK, '_blank', 'noopener');
-  }
 
   // Reveal-on-scroll
   if(!reduceMotion){
